@@ -5,15 +5,18 @@
 <a href="index.php"><i class="fas fa-angle-double-left">Retour</i></a>
 
 <?php
-  foreach ($vehicles as $value) {?>
-<div class="col-12 p-0 m-0">
-  <p class="text-center pt-2 blackText">Name: <?php echo $value->getName(); ?></p>
-  <p class="text-center pb-2 mb-0 mt-2 blackText">Type: <?php echo $value->getType();?></p>
-  <p class="text-center pb-2 mb-0 mt-2 blackText">Color: <?php echo $value->getColor();?></p>
-  <p class="text-center pb-2 mb-0 mt-2 blackText">Mark: <?php echo $value->getMark();?></p>
-  <p class="text-center pb-2 mb-0 mt-2 blackText">Doors: <?php echo $value->getDoors();?></p>
-</div>
-  <?php } ?>
+  foreach ($dataVehicle as $value) 
+  {
+    ?>
+    <div class="col-12 p-0 m-0">
+      <p class="text-center pt-2 blackText">Name: <?php echo $value->getName(); ?></p>
+      <p class="text-center pb-2 mb-0 mt-2 blackText">Type: <?php echo $value->getType();?></p>
+      <p class="text-center pb-2 mb-0 mt-2 blackText">Color: <?php echo $value->getColor();?></p>
+      <p class="text-center pb-2 mb-0 mt-2 blackText">Mark: <?php echo $value->getMark();?></p>
+    </div>
+  <?php
+  } 
+  ?>
 
   <form action="index.php" method="post" class="text-center">
   <div class="form-group">

@@ -1,5 +1,4 @@
 <?php
-
 function chargerClasse($classname)
 {
     if(file_exists('../model/'. $classname.'.php'))
@@ -16,26 +15,34 @@ spl_autoload_register('chargerClasse');
 
 $db = new VehicleManager(Database::DB());
 
-$_GET['index'];
-
 $newVehicle = new Car([
     "name" => "name"    
 ]);
 
 $db->addVehicle($newVehicle);
 
-$dataVehicle = $db->getVehicle($info);
+$vehicles = $db->getVehicles();
 
-// $vehicles = $db->getVehicles();
 
-if (!empty($_POST['name']) AND !empty($_POST['type']) AND !empty($_POST['color']) AND !empty($_POST['mark']))
-{
 
- 
-  header('Location: detail.php?detail=' . $_GET["vehicules"] . '');
-}
 
-include "../views/detailVue.php"
+
+$takeid = $_GET['vehicles'];
+$query = $this->getDb()->prepare('DELETE FROM vehicles WHERE id=$takeid');
+$query->execute();
+// $reponse = $db->prepare("DELETE FROM vehicles WHERE id=$takeid");
+// $reponse->execute();
+header('Location: index.php?index=' . $_GET["index"] . '');
+
+
+
+
+
+include "../views/indexVue.php";
 ?>
 
- 
+
+
+
+
+

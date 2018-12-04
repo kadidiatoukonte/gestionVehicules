@@ -25,6 +25,7 @@ $db->addVehicle($newVehicle);
 $vehicles = $db->getVehicles();
 
 
+
 include "../views/indexVue.php";
 ?>
 

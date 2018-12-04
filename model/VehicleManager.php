@@ -32,7 +32,7 @@ class VehicleManager {
 
   
   /**
-   * Get all users. It returns an array of objects $user
+   * Get all vehicles. It returns an array of objects $vehicle
    *
    * @return array $arrayVehicles
    */
@@ -40,31 +40,63 @@ class VehicleManager {
   {
     $arrayOfVehicles = [];
     $query = $this->getDb()->prepare('SELECT * FROM vehicles');
-    // $query = $this->_db->query('SELECT * FROM vehicles');
     $query->execute();
     $vehicles = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    // A chaque tour, on instancie un nouvel objet User qu'on stocke dans $arrayOfUsers[]
+    // At each turn, a new vehicle object is instantiated and stored in $arrayOfUsers[]
     foreach ($vehicles as $vehicle) {
-      
-        $arrayOfVehicles[] = new Car($vehicle);
-      
+
+      if ($vehicle['type'] == 'car') {
+          $arrayOfVehicles[] = new Car($vehicle);
+
+      }elseif($vehicle['type'] == 'truck'){
+          $arrayOfVehicles[] = new Truck($vehicle);
+      }elseif($vehicle['type'] == 'motorbike'){
+          $arrayOfVehicles[] = new Motorbike($vehicle);
+      }
+
     }
-    // On renvoie le tableau contenant tous nos objets User
+
     return $arrayOfVehicles;
   }
+  
+  public function getVehicle($info)
+    {
+      // if (is_int($info))
+      //   {
+            $query = $this->getDB()->prepare('SELECT * FROM vehicles WHERE id = :id');
+            $query->bindValue('id', $info, PDO::PARAM_INT);
+            $query->execute();
+        // }
 
+        // $dataCharacter est un tableau associatif contenant les informations d'un personnage
+        $dataVehicle = $query->fetch(PDO::FETCH_ASSOC);
+
+        // On crée un nouvel objet Character grâce au tableau associatif $dataCharacter, et on le retourne
+        if ($dataVehicle['type'] == 'car') {
+          $vehicle = new Car($dataVehicle);
+          return $vehicle;
+
+      }elseif($dataVehicle['type'] == 'truck'){
+          $vehicle = new Truck($dataVehicle);
+          return $vehicle;
+
+      }elseif($dataVehicle['type'] == 'motorbike'){
+          $vehicle = new Motorbike($dataVehicle);
+          return $vehicle; 
+
+      }
+        // return new Vehicle($dataVehicle);
+    }
   /**
-   * Add user in DB
+   * Add vehicle in DB
    *
-   * @param User $user
+   * @param Vehicle $vehicle
    */
   public function addVehicle(Vehicle $vehicle)
   {
     $query = $this->getDb()->prepare('INSERT INTO vehicles(name) VALUES(:name)');
-    // $query->execute([
-    //   'name' => $vehicle->getName()
-    // ]);
+
     $query->bindValue(':name', $vehicle->getName(), PDO::PARAM_STR);
 
     $query->execute();
