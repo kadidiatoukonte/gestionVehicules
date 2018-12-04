@@ -16,17 +16,26 @@ spl_autoload_register('chargerClasse');
 
 $db = new VehicleManager(Database::DB());
 
+$_GET['index'];
+
 $newVehicle = new Car([
-    "name" => "name"
+    "name" => "name"    
 ]);
 
 $db->addVehicle($newVehicle);
 
-$vehicles = $db->getVehicles();
+$dataVehicle = $db->getVehicle($info);
 
+// $vehicles = $db->getVehicles();
 
+if (!empty($_POST['name']) AND !empty($_POST['type']) AND !empty($_POST['color']) AND !empty($_POST['mark']))
+{
 
-include "../views/indexVue.php";
+ 
+  header('Location: detail.php?detail=' . $_GET["vehicules"] . '');
+}
+
+include "../views/detailVue.php"
 ?>
 
  
